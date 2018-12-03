@@ -13,7 +13,7 @@
  ![login](ManualImages/login.jpg)
  
 ### 增加核验功能
- ![re-check](MaunualImages/check.jpg)
+ ![re-check](ManualImages/check.jpg)
  
 ### 操作者信息记录
 * 如上图右上角，记录本图片的标注者与标注时间，当前用户的用户名
@@ -33,7 +33,7 @@
 	在 dist 文件夹中找到labelImg.exe 即可运行使用。
 	
 ### 作者
-	[王俊杰](http://120.79.231.160)
-	[项目主页](http://120.79.231.160/labelImg)
+* [王俊杰](http://120.79.231.160)
+* [项目主页](http://120.79.231.160/labelImg)
 
 有任何问题欢迎开issue或直接email。

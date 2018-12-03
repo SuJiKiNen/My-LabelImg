@@ -12,7 +12,7 @@
  ![login](ManualImages/login.jpg)
  
 ### Recheck Function
- ![re-check](MaunualImages/check.jpg)
+ ![re-check](ManualImages/check.jpg)
  
 ### Records Of The Users
 * As you can see in the image above, information about the users and previous labellers are recorded and loaded.
@@ -33,8 +33,8 @@
 	Then you will see labelImg.exe and just run it!
 	
 ### Author
-	[Junjie Wang](http://120.79.231.160)
-	[Project MainPage](http://120.79.231.160/labelImg)
+* [Junjie Wang](http://120.79.231.160)
+* [Project MainPage](http://120.79.231.160/labelImg)
 	
 A star will be highly appreciated.
 Welcome to any issues or disscussion.

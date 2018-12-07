@@ -1,6 +1,6 @@
 # 图像标注软件
 ------------------------------
-> For a English version please view README_en.md
+> For an English version please view README_en.md
 
 ### 简介
 &nbsp;&nbsp; 本 repo 是 fork from [tzutalin](https://github.com/tzutalin/labelImg)并作出了一定修改。修改主要包括:
@@ -24,11 +24,11 @@
 * 若操作者为核验者，则在其勾选"我要核验"后，当前图片会定位到未核验的图片
 
 ### 环境依赖
-* 跨平台，linux,windows,mac均可，具体安装过程参照 tzutalin 的repo
+* 跨平台，linux,windows,mac均可，具体安装过程参照 [tzutalin的repo](https://github.com/tzutalin/labelImg)
 * PyQt5 开发，且为保持兼容 加入了 PyQt4
     
 ### 打包
-    'pyinstall -m labelImg.py'
+    'pyinstaller -m labelImg.py'
     运行该命令后会在当前目录产生 dist 文件夹，再将Qt库中的 platforms 文件放到该目录下
 	在 dist 文件夹中找到labelImg.exe 即可运行使用。
 	

@@ -23,7 +23,7 @@
 * If current user is a checker, tick "I want to check", then when you finish checking one image, a unchecked but already labelled image will be loaded
 
 ### Environment Requirements
-* Cross-platform，linux,windows,mac are all OK，details installation process please refer to [tzutalin](https://github.com/tzutalin/labelImg)
+* Cross-platform, support linux,windows,mac. For detailed installation process please refer to [tzutalin's repo](https://github.com/tzutalin/labelImg)
 * Developed with PyQt5, and for compatibility, PyQt4 is added.
     
 ### Packing(using pyinstaller)

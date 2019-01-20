@@ -1593,12 +1593,22 @@ class MainWindow(QMainWindow, WindowMixin):
                                   u"<p>没有图片被打开.")
             return
 
+        """
         for root, dirs, files in os.walk(self.defaultPicSaveDir):
             for dir in dirs:
                 for root2, dirs2, files2 in os.walk(os.path.join(root,dir)):
                     for file in files2:
+                        print(file.split('_')[1])
+                        print(os.path.basename(self.filePath).split('.')[0])
                         if file.split('_')[1] == os.path.basename(self.filePath).split('.')[0]:
                             os.remove(os.path.join(root2,file))
+                            print('Removed!')
+        """
+        # Replaced By The Code Below
+        for sub_dir in os.listdir(self.defaultPicSaveDir):
+            for cell in os.listdir(os.path.join(self.defaultPicSaveDir,sub_dir)):
+                if cell.split('_')[1] == os.path.basename(self.filePath).split('.')[0]:
+                    os.remove(os.path.join(os.path.join(self.defaultPicSaveDir,sub_dir),cell))
 
         def format_shape(s):
             return dict(label=s.label,

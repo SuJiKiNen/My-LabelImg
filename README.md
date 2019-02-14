@@ -11,13 +11,13 @@
 
 ### 增加登录
  ![login](ManualImages/login.jpg)
- 
+
 ### 增加核验功能
  ![re-check](ManualImages/check.jpg)
- 
+
 ### 操作者信息记录
 * 如上图右上角，记录本图片的标注者与标注时间，当前用户的用户名
- 
+
 ### 文件列表
 * 三种状态，从上往下依次是: 未核验, 未标注，已核验
 * 若操作者为标注者，则不勾选"我要核验"，标注完一张图片后会定位到未标注的图片
@@ -26,12 +26,20 @@
 ### 环境依赖
 * 跨平台，linux,windows,mac均可，具体安装过程参照 [tzutalin的repo](https://github.com/tzutalin/labelImg)
 * PyQt5 开发，且为保持兼容 加入了 PyQt4
-    
-### 打包
-    'pyinstaller -m labelImg.py'
-    运行该命令后会在当前目录产生 dist 文件夹，再将Qt库中的 platforms 文件放到该目录下
-	在 dist 文件夹中找到labelImg.exe 即可运行使用。
-	
+
+### Windows下打包
+* `pip install pipenv`
+* `pipenv sync`
+* `pipenv run pyinstaller -F labelImg.py`
+* 在 dist 文件夹中找到labelImg.exe 即可运行使用。
+
+| 注意: 如果使用过原版的`labelimg`,请先在电脑里找到`.labelImgSettings.pkl`文件并删除  |
+| --- |
+
+### 下载编译好的二进制包
+[下载地址](https://github.com/SuJiKiNen/My-LabelImg/releases/download/qt5_build/labelimg.zip)
+
+
 ### 作者
 * [王俊杰](http://120.79.231.160)
 * [项目主页](http://120.79.231.160/labelImg)

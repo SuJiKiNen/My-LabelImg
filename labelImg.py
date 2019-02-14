@@ -65,11 +65,12 @@ def util_qt_strlistclass():
     return QStringList if have_qstring() else list
 
 class LoginDialog(QDialog):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, classes_path=None):
         super(LoginDialog, self).__init__(parent)
         usr = QLabel("用户：")
         self.usrLineEdit = QLineEdit()
         self.user = None
+        self.classes_path = classes_path
 
         gridLayout = QGridLayout()
         gridLayout.addWidget(usr, 0, 0, 1, 1)
@@ -104,7 +105,7 @@ class LoginDialog(QDialog):
             self.usrLineEdit.setFocus()
         else:
             self.user = self.usrLineEdit.text().strip()
-            main_win = MainWindow(userName=self.user)
+            main_win = MainWindow(userName=self.user, defaultPrefdefClassFile=self.classes_path)
             main_win.show()
             super(LoginDialog, self).accept()
 
@@ -522,7 +523,7 @@ class MainWindow(QMainWindow, WindowMixin):
             hideAll, showAll, None,
             zoomIn, zoomOut, zoomOrg, None,
             fitWindow, fitWidth))
-        
+
         addActions(self.menus.check,(self.check,self.isCheck,self.cancelCheck,self.checkLog))
 
         self.menus.file.aboutToShow.connect(self.updateFileMenu)
@@ -927,7 +928,7 @@ class MainWindow(QMainWindow, WindowMixin):
                 if ustr(annotationFilePath[-4:]) != ".xml":
                     annotationFilePath += XML_EXT
                 print ('Img: ' + self.filePath + ' -> Its xml: ' + annotationFilePath)
-                
+
                 self.labelFile.savePascalVocFormat(annotationFilePath, shapes, self.filePath, self.imageData, self.saveTimes,self.opUserName,
                                                    self.opTime,self.isChecked,self.lastCheckTime,self.lineColor.getRgb(), self.fillColor.getRgb())
             elif self.usingYoloFormat is True:
@@ -1017,7 +1018,7 @@ class MainWindow(QMainWindow, WindowMixin):
     def checkCorrect(self):
         if self.filePath == None:
             self.errorMessage(u'错误!',u'请先打开图片！')
-            return              
+            return
 
         reply = QMessageBox.information(self, '确认', '本图片将被标注为已核验，请保存以生效',
                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
@@ -1053,8 +1054,8 @@ class MainWindow(QMainWindow, WindowMixin):
     def checkCancel(self):
         self.toggleIsChecked(False)
         self.setDirty()
-        self.saveFile()   
-        self.sortFileList()   
+        self.saveFile()
+        self.sortFileList()
 
     def setZoom(self, value):
         self.actions.fitWidth.setChecked(False)
@@ -1243,7 +1244,7 @@ class MainWindow(QMainWindow, WindowMixin):
 
             self.updateOpInfo()
             self.sortFileList()
-            
+
             self.setWindowTitle(__appname__ + ' ' + filePath)
 
             # Default : select last item if there is at least one item
@@ -1254,7 +1255,7 @@ class MainWindow(QMainWindow, WindowMixin):
             self.canvas.setFocus(True)
             return True
         return False
-    
+
     def updateOpInfo(self):
         if not self.redirectBox.isChecked():
             self.opUserNameText.setText(self.opUserName)
@@ -1565,22 +1566,22 @@ class MainWindow(QMainWindow, WindowMixin):
         shapeIndex = self.canvas.shapes.index(predictShape)
         shapeLabel = predictShape.label
         tmpIndex = 1
-        tmpPath = os.path.join(os.path.join(self.defaultPicSaveDir,shapeLabel), 
+        tmpPath = os.path.join(os.path.join(self.defaultPicSaveDir,shapeLabel),
                 shapeLabel+'_'+os.path.basename(self.filePath).split('.')[0]+'_'+str(tmpIndex)+'.tif')
-        
+
         while(not os.path.exists(tmpPath)):
             tmpIndex += 1
             if tmpIndex > 10000:
                 self.errorMessage(u'错误',u'没有找到切分图片！请确认是否已保存！')
                 return
-        
+
         shapePath=tmpPath
         Img = cv2.imdecode(np.fromfile(shapePath,dtype=np.uint8),-1)
         dialog = PredictDialog(parent=self)
         dialog.predictClass(Img)
         dialog.show()
     """
-    
+
 
     def saveDividedPicture(self, _value = False):
         if self.defaultPicSaveDir == None:
@@ -1817,9 +1818,9 @@ class MainWindow(QMainWindow, WindowMixin):
             else:
                 imgXmlPath = os.path.splitext(unicodeImgPath)[0] + XML_EXT
                 imgTxtPath = os.path.splitext(unicodeImgPath)[0] + TXT_EXT
-            
+
             if not os.path.isfile(imgXmlPath):
-                # not labelled 
+                # not labelled
                 state_1.append(imgPath)
             else:
                 tVocParseReader = PascalVocReader(imgXmlPath)
@@ -1831,7 +1832,7 @@ class MainWindow(QMainWindow, WindowMixin):
                     # checked
                     state_3.append(imgPath)
             self.mImgList = state_2 + state_1 + state_3
- 
+
         #self.fileListWidget.clear()
         #for imgPath in self.mImgList:
             #item = QListWidgetItem(imgPath)
@@ -1844,7 +1845,7 @@ class MainWindow(QMainWindow, WindowMixin):
             fileWidgetItem = self.fileListWidget.item(index)
             #fileWidgetItem.setSelected(True)
             fileWidgetItem.setBackground(QColor(0, 255, 0, 100))
-        
+
     def redirectFile(self):
         state_1,state_2,state_3 = [],[],[]
 
@@ -1858,9 +1859,9 @@ class MainWindow(QMainWindow, WindowMixin):
             else:
                 imgXmlPath = os.path.splitext(unicodeImgPath)[0] + XML_EXT
                 imgTxtPath = os.path.splitext(unicodeImgPath)[0] + TXT_EXT
-            
+
             if not os.path.isfile(imgXmlPath):
-                # not labelled 
+                # not labelled
                 state_1.append(imgPath)
             else:
                 tVocParseReader = PascalVocReader(imgXmlPath)
@@ -1894,7 +1895,7 @@ class MainWindow(QMainWindow, WindowMixin):
             else:
                 imgXmlPath = os.path.splitext(unicodeImgPath)[0] + XML_EXT
                 imgTxtPath = os.path.splitext(unicodeImgPath)[0] + TXT_EXT
-            
+
             if not os.path.isfile(imgXmlPath):
                 imgState = 0
             else:
@@ -1908,7 +1909,7 @@ class MainWindow(QMainWindow, WindowMixin):
             #imgItem = QListWidgetItem(stateList[imgState])
             #self.checkListWidget.addItem(imgItem)
             self.fileListWidget.addItem(QListWidgetItem(str(stateList[imgState] + " " +  imgPath)))
-            
+
 
 
 def inverted(color):
@@ -1962,8 +1963,9 @@ def CV2QImage(cv_image):
 def main():
     '''construct main app and run it'''
     #app, _win = get_main_app(sys.argv)
+    classes_path = os.path.join(os.path.dirname(sys.argv[0]), 'data', 'predefined_classes.txt')
     app=QtWidgets.QApplication(sys.argv)
-    login = LoginDialog()
+    login = LoginDialog(classes_path = classes_path)
     login.show()
     return app.exec_()
 

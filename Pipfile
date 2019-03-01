@@ -6,10 +6,10 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-opencv-python = {index = "http://mirrors.aliyun.com/pypi/simple/",version = "*"}
-pyqt5 = {index = "http://mirrors.aliyun.com/pypi/simple/",version = "*"}
-lxml = {index = "http://mirrors.aliyun.com/pypi/simple/",version = "*"}
-pyinstaller = {index = "http://mirrors.aliyun.com/pypi/simple/",version = "*"}
+openc-python = {index = "http://pypi.douban.com/simple/",version = "*"}
+pyqt5 = {index = "http://pypi.douban.com/simple/",version = "*"}
+lxml = {index = "http://pypi.douban.com/simple/",version = "*"}
+pyinstaller = {index = "http://pypi.douban.com/simple/",version = "*"}
 
 [requires]
 python_version = "3.7"

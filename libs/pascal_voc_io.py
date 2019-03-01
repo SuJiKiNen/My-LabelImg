@@ -204,7 +204,9 @@ class PascalVocReader:
         parser = etree.XMLParser(encoding=ENCODE_METHOD)
         xmltree = ElementTree.parse(self.filepath, parser=parser).getroot()
         filename = xmltree.find('filename').text
-        self.saveTimes = int(xmltree.find('saveTimes').text)
+        if xmltree.find('saveTimes') is not None:
+            self.saveTimes = int(xmltree.find('saveTimes').text)
+
         if xmltree.find('isCheck') is None:
             self.isCheck = False
         elif xmltree.find('isCheck').text == 'True':
